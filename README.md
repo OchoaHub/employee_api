@@ -22,5 +22,3 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
-
-![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/OchoaHub/employee_api?utm_source=oss&utm_medium=github&utm_campaign=OchoaHub%2Femployee_api&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)

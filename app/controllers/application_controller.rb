@@ -15,6 +15,16 @@ class ApplicationController < ActionController::API
       render json: { error: "Unauthorized" }, status: :unauthorized and return
     end
 
-    @current_subject = payload["sub"]
+    subject = payload["sub"].to_s
+    if subject.start_with?("api_key:")
+      raw_token = subject.split(":", 2).last
+      unless ApiKey.exists?(token: raw_token)
+        render json: { error: "Unauthorized" }, status: :unauthorized and return
+      end
+    else
+      render json: { error: "Unauthorized" }, status: :unauthorized and return
+    end
+
+    @current_subject = subject
   end
 end
