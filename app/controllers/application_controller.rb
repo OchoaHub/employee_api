@@ -1,13 +1,20 @@
 class ApplicationController < ActionController::API
-  include ActionController::HttpAuthentication::Token::ControllerMethods
-
   before_action :authenticate!
 
   private
 
   def authenticate!
-    authenticate_or_request_with_http_token do |token, options|
-      ApiKey.exists?(token: token)
+    header = request.headers["Authorization"].to_s
+    unless header.start_with?("Bearer ")
+      render json: { error: "Unauthorized" }, status: :unauthorized and return
     end
+
+    token = header.split(" ", 2).last
+    payload = JwtService.decode(token)
+    if payload.nil?
+      render json: { error: "Unauthorized" }, status: :unauthorized and return
+    end
+
+    @current_subject = payload["sub"]
   end
 end

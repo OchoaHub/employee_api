@@ -2,8 +2,9 @@ require "test_helper"
 
 class ClientsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @token = ApiKey.create!(name: "test").token
-    @headers = { "Authorization" => "Token token=#{@token}" }
+    post auth_login_url, params: { api_key: api_keys(:one).token }
+    @jwt = JSON.parse(@response.body)["token"]
+    @headers = { "Authorization" => "Bearer #{@jwt}" }
   end
 
   test "get clients" do

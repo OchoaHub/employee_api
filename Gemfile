@@ -12,6 +12,7 @@ gem "faraday", "~> 1.10"
 gem "faraday_middleware", "~> 1.2"
 gem "faraday-follow_redirects", "~> 0.3"
 gem "rack-cors", "~> 2.0"
+gem "jwt", "~> 2.8"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
