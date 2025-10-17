@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   resources :clients, only: [ :index ]
   # Defines the root path route ("/")
   # root "posts#index"
+  match "*unmatched", to: "application#route_not_found", via: :all
 end
