@@ -42,12 +42,12 @@ class ApplicationController < ActionController::API
 
   def render_unprocessable_entity(exception)
     record = exception.try(:record)
-    errors = record&.errors&.full_messages || [exception.message]
+    errors = record&.errors&.full_messages || [ exception.message ]
     render json: { error: "unprocessable_entity", message: "Validación fallida", details: errors }, status: :unprocessable_entity
   end
 
   def render_parameter_missing(exception)
-    render json:({ error: "unprocessable_entity", message: "Parámetro faltante: #{exception.message}", param: exception.param }), status: :unprocessable_entity
+    render json: { error: "unprocessable_entity", message: "Parámetro faltante: #{exception.message}", param: exception.param }, status: :unprocessable_entity
   end
 
   def render_internal_error(exception)
