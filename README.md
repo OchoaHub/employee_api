@@ -89,7 +89,7 @@ bin/rails test
 - test/fixtures/api_keys.yml
 - test/fixtures/employees.yml
 
-# Decisiones ténicas:
+# Decisiones técnicas:
 
 - 1. Rails 8 en API-only/API Mode, ya que solo se solicitaron servicios, no vistas.
 - 2. Autenticación con JWT, variables externalizadas como **JWT_SECRET** e integración simple
@@ -206,4 +206,22 @@ bin/rails test
     }
   ]
 }
+```
+
+
+## Docker
+
+Iniciar docker
+```bash
+docker compose -f docker-compose.prod.yml --env-file .env.example up --build -d
+```
+
+Logs
+```bash
+docker compose -f docker-compose.prod.yml logs -f app
+```
+
+Detener
+```bash
+docker compose -f docker-compose.prod.yml down
 ```
