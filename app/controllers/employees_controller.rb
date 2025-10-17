@@ -15,7 +15,7 @@ class EmployeesController < ApplicationController
     if employee.save
       render json: employee.as_json(only: %i[id first_name last_name email date_of_birth phone_number registration_complete created_at]), status: :created
     else
-      render json: { errors: employee.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: "unprocessable_entity", message: "Validación fallida", details: employee.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -23,7 +23,7 @@ class EmployeesController < ApplicationController
     if @employee.update(employee_params)
       render json: @employee.as_json(only: %i[id first_name last_name email date_of_birth phone_number registration_complete created_at])
     else
-      render json: { errors: @employee.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: "unprocessable_entity", message: "Validación fallida", details: @employee.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -36,8 +36,6 @@ class EmployeesController < ApplicationController
 
   def set_employee
     @employee = Employee.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render json: { error: "Employee not found" }, status: :not_found
   end
 
   def employee_params

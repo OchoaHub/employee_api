@@ -12,12 +12,7 @@ module JwtService
   end
 
   def decode(token)
-    decoded, = JWT.decode(
-      token,
-      secret,
-      true,
-      { algorithm: "HS256", verify_expiration: true }
-    )
+    decoded, = JWT.decode(token, secret, true, { algorithm: "HS256", verify_expiration: true })
     decoded
   rescue JWT::DecodeError
     nil
