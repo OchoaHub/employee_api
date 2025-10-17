@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::API
   before_action :authenticate!
 
+  rescue_from StandardError, with: :render_internal_error
+
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   rescue_from ActiveRecord::RecordInvalid,  with: :render_unprocessable_entity
   rescue_from ActionController::ParameterMissing, with: :render_parameter_missing
-
-  rescue_from StandardError, with: :render_internal_error
 
   private
 
@@ -47,7 +47,7 @@ class ApplicationController < ActionController::API
   end
 
   def render_parameter_missing(exception)
-    render json: { error: "unprocessable_entity", message: "Parámetro faltante: #{exception.message}", param: exception.param }, status: :unprocessable_entity
+    render json:({ error: "unprocessable_entity", message: "Parámetro faltante: #{exception.message}", param: exception.param }), status: :unprocessable_entity
   end
 
   def render_internal_error(exception)
