@@ -8,6 +8,10 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-if ApiKey.count.zero?
-  ApiKey.create!(name: "default")
+default_token = ENV["DEFAULT_API_KEY_TOKEN"].to_s.presence
+
+api_key = ApiKey.find_or_create_by!(name: "default") do |k|
+  k.token = default_token if default_token
 end
+
+puts "[SEEDS] Default ApiKey token: #{api_key.token}"
